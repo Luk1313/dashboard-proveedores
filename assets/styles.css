@@ -1,0 +1,26 @@
+/* Fondo Naranja */
+body {
+    background-color: #000000;  /* Naranja */
+    color: #0a0a0a;  /* Color de texto general (gris oscuro para mejor visibilidad) */
+    font-family: Arial, sans-serif;
+}
+
+.card-title {
+    color: #e1e4eb;  /* Azul ejecutivo */
+}
+
+.header-title {
+    color: #e5e8f0;  /* Azul ejecutivo */
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.card {
+    margin: 20px;
+    padding: 20px;
+    background-color: rgb(187, 134, 35);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
