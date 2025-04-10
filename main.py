@@ -63,8 +63,8 @@ app.layout = html.Div([
     ], className="card"),
 ])
 
-# Ejecutar app
 if __name__ == '__main__':
-    app.run(debug=True)  
+    aplicación.ejecutar(debug=True)
 
-server = aplicación.servidor
+servidor = aplicación.servidor
+
