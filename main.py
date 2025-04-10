@@ -4,67 +4,70 @@ import pandas as pd
 import plotly.express as px
 
 # Importar funciones desde los módulos locales
-from modulos.preparar_datos import preparar_columnas_fecha
-from modulos.Proveedores_Principales import (
+from módulos.preparar_datos import preparar_columnas_fecha
+from módulos.Proveedores_Principales import (
     crear_barras_proveedores_top,
     crear_barras_monto_total,
-    crear_barras_monto_promedio,
+    crear_barras_monto_promedio
 )
-from modulos.emision_recepcion_pago import crear_grafico_fecha_proveedor
-from modulos.tendencia_comparativa import crear_tendencia_comparativa_costos
-from modulos.Tendencia_diaria_evolutiva import crear_tendencia_costos
-from modulos.tendencia_evolutiva_mensual import crear_tendencia_mensual_costos
+from módulos.emisión_recepción_pago import crear_grafico_fecha_proveedor
+from módulos.tendencia_comparativa import crear_tendencia_comparativa_costos
+from módulos.Tendencia_diaria_evolutiva import crear_tendencia_costos
+from módulos.tendencia_evolutiva_mensual import crear_tendencia_mensual_costos
 
 # Cargar y preparar los datos
-df = pd.read_excel("data_proveedores.xlsx")
+df = pd.read_excel("datos_proveedores.xlsx")
 df = preparar_columnas_fecha(df)
 
-# Crear app Dash
-app = dash.Dash(__name__)
-app.title = "Dashboard de Proveedores"
+# Crear aplicación Dash
+aplicación = dash.Dash(__name__)
+aplicación.title = "Panel de Proveedores"
 
-# Layout
-app.layout = html.Div([
-    html.H1("Análisis de Proveedores", className="header-title"),
+# Disposición de la app
+aplicación.layout = html.Div([
+    html.H1("Análisis de Proveedores", className="título-del-encabezado"),
 
     html.Div([
-        html.H2("Top 10 Proveedores por Número de Facturas", className="card-title"),
-        dcc.Graph(id="top-proveedores", figure=crear_barras_proveedores_top(df)),
+        html.H2("Top 10 Proveedores por Número de Facturas"),
+        dcc.Graph(id='top-proveedores', figure=crear_barras_proveedores_top(df)),
     ], className="card"),
 
     html.Div([
-        html.H2("Proveedores por Monto Total", className="card-title"),
-        dcc.Graph(id="grafico-monto-total", figure=crear_barras_monto_total(df)),
+        html.H2("Proveedores por Monto Total"),
+        dcc.Graph(id='grafico-monto-total', figure=crear_barras_monto_total(df)),
     ], className="card"),
 
     html.Div([
-        html.H2("Proveedores por Monto Promedio", className="card-title"),
-        dcc.Graph(id="grafico-monto-promedio", figure=crear_barras_monto_promedio(df)),
+        html.H2("Proveedores por Monto Promedio"),
+        dcc.Graph(id='grafico-monto-promedio', figure=crear_barras_monto_promedio(df)),
     ], className="card"),
 
     html.Div([
-        html.H2("Tendencia Diaria Evolutiva de los Costos", className="card-title"),
-        dcc.Graph(id="tendencia-diaria-evolutiva", figure=crear_tendencia_costos(df)),
+        html.H2("Tendencia Diaria Evolutiva de los Costos"),
+        dcc.Graph(id='tendencia-diaria-evolutiva', figure=crear_tendencia_costos(df)),
     ], className="card"),
 
     html.Div([
-        html.H2("Tendencia Evolutiva Mensual de los Costos", className="card-title"),
-        dcc.Graph(id="tendencia-evolutiva-mensual", figure=crear_tendencia_mensual_costos(df)),
+        html.H2("Tendencia Evolutiva Mensual de los Costos"),
+        dcc.Graph(id='tendencia-evolutiva-mensual', figure=crear_tendencia_mensual_costos(df)),
     ], className="card"),
 
     html.Div([
-        html.H2("Tendencia Comparativa de los Costos (2023 - 2025)", className="card-title"),
-        dcc.Graph(id="tendencia-comparativa", figure=crear_tendencia_comparativa_costos(df)),
+        html.H2("Tendencia Comparativa de los Costos (2023 - 2025)"),
+        dcc.Graph(id='tendencia-comparativa', figure=crear_tendencia_comparativa_costos(df)),
     ], className="card"),
 
     html.Div([
-        html.H2("Fechas de Emisión, Recepción y Pago", className="card-title"),
-        dcc.Graph(id="grafico-fechas", figure=crear_grafico_fecha_proveedor(df)),
+        html.H2("Fechas de Emisión, Recepción y Pago"),
+        dcc.Graph(id='grafico-fechas', figure=crear_grafico_fecha_proveedor(df)),
     ], className="card"),
 ])
 
-if __name__ == '__main__':
-    aplicación.ejecutar(debug=True)
+# Para que Render pueda ejecutarla
+server = aplicación.server
 
-servidor = aplicación.servidor
+# Ejecutar localmente
+if __name__ == '__main__':
+    aplicación.run_server(debug=True)
+
 
